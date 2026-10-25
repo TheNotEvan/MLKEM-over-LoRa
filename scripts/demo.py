@@ -108,7 +108,6 @@ def confirm_code(link, session):
     print("  +--------------------------------+")
     print(f"  |   Verification code: {code}   |")
     print("  +--------------------------------+")
-    print("  Read it aloud. If someone were intercepting, the two codes would differ.")
     print()
     return ask("Does the other device show the same code? [y/n] ").lower() == "y"
 
