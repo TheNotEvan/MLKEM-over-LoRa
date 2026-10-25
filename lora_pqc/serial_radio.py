@@ -11,13 +11,18 @@ FRAME_START = 0xAA
 CMD_TRANSMIT = ord("T")
 CMD_PING = ord("P")
 CMD_SET_SF = ord("S")
+CMD_DISPLAY = ord("O")
 EVT_READY = ord("B")
 EVT_RECEIVED = ord("R")
 EVT_SENT = ord("D")
 EVT_RX_ERROR = ord("E")
-KNOWN_TYPES = {CMD_TRANSMIT, CMD_PING, CMD_SET_SF, EVT_READY, EVT_RECEIVED, EVT_SENT, EVT_RX_ERROR}
+KNOWN_TYPES = {CMD_TRANSMIT, CMD_PING, CMD_SET_SF, CMD_DISPLAY, EVT_READY, EVT_RECEIVED, EVT_SENT, EVT_RX_ERROR}
 MAX_FRAME_DATA = MAX_PACKET + 4
 SEND_TIMEOUT = 4.0
+TEXT_SMALL = 0
+TEXT_MEDIUM = 1
+TEXT_LARGE = 2
+MAX_DISPLAY_TEXT = 200
 
 
 class RadioError(Exception):
@@ -146,6 +151,13 @@ class SerialRadio:
             return self.inbox.get(timeout=timeout)
         except queue.Empty:
             return None
+
+    def show_text(self, text: str, size: int = TEXT_SMALL) -> None:
+        if size not in (TEXT_SMALL, TEXT_MEDIUM, TEXT_LARGE):
+            raise ValueError(f"size must be TEXT_SMALL, TEXT_MEDIUM or TEXT_LARGE, not {size}")
+        clean = "".join(c if c == "\n" or " " <= c <= "~" else "?" for c in text)
+        data = bytes([size]) + clean[:MAX_DISPLAY_TEXT].encode("ascii")
+        self.ser.write(encode_frame(CMD_DISPLAY, data))
 
     def close(self) -> None:
         self._stop = True
