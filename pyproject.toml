@@ -1,0 +1,9 @@
+[project]
+name = "lora-pqc"
+version = "0.1.0"
+description = "Post-quantum (ML-KEM + X25519) key exchange over LoRa"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
