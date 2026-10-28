@@ -1,6 +1,6 @@
 # Module Lattice Key Encapsulation Mechanism over LoRa
 
- A post-quantum key exchange over air between two Heltec WiFi LoRa 32 V3's, a long range wireless IoT development board. THe handshake utilizes my implementation of Module
+ A post-quantum key exchange over air between two Heltec WiFi LoRa 32 V3's, a long range wireless IoT development board. The handshake utilizes my implementation of Module
  Lattice Key Encapsulation Mechanism From, which can be found at https://github.com/TheNotEvan/Post-Quantum-Crypto and X25519, a eliptic-curve Diffie-Hellman function.
 
  # Installation 
