@@ -32,3 +32,9 @@ When succesful, Alice's terminal should look like this:
 
 <img width="790" height="210" alt="image" src="https://github.com/user-attachments/assets/b1f564d6-15b1-4862-96af-f7d45c0ce649" />
 
+# How it works
+
+* Messages are spit into 255 byte packets with a 6 byte header, which are then transmitted over radio.
+* The recieving end notifies the sender which packets are lost during tramission, which are resent untill all packets are recieved.
+* Both ends establish a shared secret key using ML-KEM and X25519, with a confirmation tag being used for implicit rejection.
+* AES-GCM encryption and a nonce are used to encrypt session traffic
